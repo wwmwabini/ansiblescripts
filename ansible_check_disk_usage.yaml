@@ -1,0 +1,14 @@
+---
+- hosts: cpanel-servers
+  remote_user: truehost
+  become: yes
+  become_method: sudo
+
+  tasks:
+  - name: Check disk space
+    shell: |
+      df -h / /home /var /tmp
+    register: dh
+
+  - debug:
+      var: dh.stdout_lines
